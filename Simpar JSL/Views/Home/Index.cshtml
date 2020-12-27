@@ -1,0 +1,278 @@
+﻿@model Simpar_JSL.Models.CadastroViewModels
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row shadow">
+    <div class="col-md-12" style="background-color:#ffffff; min-height:600px;">
+        <div class="row">
+            <div class="col-md-4 text-left" style="margin-top:3%; margin-bottom:1%; margin-left:2%;">
+                <img src="~/Content/Imagens/jsl.png" style="width:50%; height:50%;" />
+            </div>
+            <div class="col-md-8 text-right"></div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <h6> <a id="btn-modal" class='btn btn-lg' href='javascript:void(0)' style="color:#000000"><small>Novo</small> <i class="fa fa-lg fa-plus-circle text-success"></i></a></h6>
+            </div>
+        </div>
+
+        <div class="row" id="table-content">
+            <div class="col-md-12" style="overflow:auto;">
+                <!--Alertas-->
+                <div id="success" class="alert alert-success alert-dismissible fade in hidden" role="alert">
+                    <button id="btn-success" type="button" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong><span Id="message-success"></span></strong><br />
+                </div>
+
+                <div id="danger" class="alert alert-danger alert-dismissible fade in hidden" role="alert">
+                    <button id="btn-danger" type="button" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong><span Id="message-danger"></span></strong><br />
+                </div>
+                <!--Table-->
+                <input class="form-control" id="myInput" type="text" placeholder="Pesquise Aqui..">
+                <br />
+                <table class="table table-hover table-striped table-sm table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2 text-left">Nome Completo</th>
+                            <th class="col-md-2 text-left">Marca Caminhão</th>
+                            <th class="col-md-2 text-left">Modelo</th>
+                            <th class="col-md-2 text-left">Placa</th>
+                            <th class="col-md-2 text-left">Status Caminhão</th>
+                            <th class="col-md-2 text-left">Status Motorista</th>
+                            <th class="col-md-2 text-left"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-dados"></tbody>
+                </table>
+                <!--No Data-->
+                <div class="table-nodata hidden">
+                    <p class="alert alert-info"><span class="fa fa-lg fa-fw fa-info-circle"></span><b> Nenhum usuario cadastrado!</b></p>
+                </div>
+                <!--Loader-->
+                <div class="row" id="loader-card" hidden="hidden">
+                    <div class="col-md-12">
+                        <div class="text-center" style="margin-top:50px">
+                            <span class="fa fa-2x fa-fw fa-spinner fa-spin"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Detalhes, Save-->
+<div id="showModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-height:600px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle"><i class='fa fa-lg fa fa-info text-success'></i> Detalhes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("Save", "Home", FormMethod.Post, new { @class = "form-horizontal form-save", @role = "form" }))
+                {
+                    @Html.HiddenFor(p => p.Id)
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--Motorista-->
+                            <div class="card card-small mb-12   rounded">
+                                <div class="card-body  text-left">
+                                    <h4><strong>Dados do Motorista</strong></h4>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(f => f.Nome, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Nome, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Nome, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @Html.CheckBoxFor(f => f.StatusMotorista, new { @checked = "checked" })
+                                            @Html.LabelFor(f => f.StatusMotorista, new { @class = "label-control" })
+                                            @Html.ValidationMessageFor(m => m.StatusMotorista, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <!--Dados Caminhão-->
+                            <div class="card card-small mb-12   rounded">
+                                <div class="card-body  text-left">
+                                    <h4><strong>Dados do Caminhão</strong></h4>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Marca, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Marca, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Marca, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Modelo, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Modelo, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Modelo, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Placa, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Placa, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Placa, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Eixos, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Eixos, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Eixos, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @Html.CheckBoxFor(f => f.StatusCaminhao, new { @checked = "checked" })
+                                            @Html.LabelFor(f => f.StatusCaminhao, new { @class = "label-control" })
+                                            @Html.ValidationMessageFor(m => m.StatusCaminhao, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <!--Dados Endereço-->
+                            <div class="card card-small mb-12   rounded">
+                                <div class="card-body  text-left">
+                                    <h4><strong>Dados do Endereço</strong></h4>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Cep, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Cep, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Cep, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Estado, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Estado, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Estado, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Cidade, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Cidade, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Cidade, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Bairro, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Bairro, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Bairro, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Rua, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Rua, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Rua, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(f => f.Numero, new { @class = "label-control" })
+                                            @Html.TextBoxFor(p => p.Numero, new { @class = "form-control border-input" })
+                                            @Html.ValidationMessageFor(m => m.Numero, string.Empty, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <!--Observações-->
+                            <h4><strong>Observações</strong></h4>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(f => f.Observacoes, new { @class = "label-control" })
+                                    @Html.TextAreaFor(p => p.Observacoes, new { @class = "form-control border-input", @placeholder = "", @rows = "5" })
+                                    @Html.ValidationMessageFor(m => m.Observacoes, string.Empty, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+                            <!--Btn-->
+                            <div class="card card-small mb-12  p-3 mb-5 bg-white rounded">
+                                <div class="card-body  text-left">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a style="margin:5px" class="btn btn-fill btn-danger btn-block" data-dismiss="modal" href="javascript:void(0)"><span class="fa fa-lg fa-fw fa-close"></span> Fechar</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a style="margin:5px" id="btn-create" class="btn btn-fill btn-info btn-block" href="javascript:void(0)"><span class="fa fa-lg fa-fw fa-save"></span> Salvar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Delete-->
+<div id="showModal-del" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-height:250px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle"><i class='fa fa-lg fa fa-trash text-danger'></i> Deletar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @Html.HiddenFor(p => p.IdUsuario)
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--Motorista-->
+                        <div class="card card-small mb-12   rounded">
+                            <div class="card-body  text-left">
+                                <h4><strong>Deseja Realmente deletar o Usuário ? </strong></h4>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card card-small mb-12  p-3 mb-5 bg-white rounded">
+                            <div class="card-body  text-left">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a style="margin:5px" class="btn btn-fill btn-success btn-block" data-dismiss="modal" href="javascript:void(0)"><span class="fa fa-lg fa-fw fa-close"></span> Fechar</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a style="margin:5px" id="btn-del" class="btn btn-fill btn-danger btn-block" href="javascript:void(0)"><span class="fa fa-lg fa-fw fa-trash"></span> Deletar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/Scripts/index.js"></script>
+
+}

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Simpar_JslModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomeCompleto" Type="varchar" MaxLength="150" />
+          <Property Name="Rua" Type="varchar" MaxLength="150" />
+          <Property Name="Cidade" Type="varchar" MaxLength="150" />
+          <Property Name="Numero" Type="int" />
+          <Property Name="Cep" Type="varchar" MaxLength="10" />
+          <Property Name="Bairro" Type="varchar" MaxLength="150" />
+          <Property Name="Estado" Type="varchar" MaxLength="150" />
+          <Property Name="Observacoes" Type="varchar" MaxLength="600" />
+          <Property Name="Marca" Type="varchar" MaxLength="150" />
+          <Property Name="Modelo" Type="varchar" MaxLength="150" />
+          <Property Name="Placa" Type="varchar" MaxLength="150" />
+          <Property Name="Eixos" Type="int" />
+          <Property Name="StatusCaminhao" Type="bit" />
+          <Property Name="StatusMorotista" Type="bit" />
+          <Property Name="DataCriacao" Type="datetime" />
+          <Property Name="DataAlteracao" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="Simpar_JslModelStoreContainer">
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Simpar_JslModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SimparlEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Usuarios" EntityType="Simpar_JslModel.Usuarios" />
+        </EntityContainer>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomeCompleto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Rua" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="Int32" />
+          <Property Name="Cep" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Observacoes" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="Marca" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Modelo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Placa" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Eixos" Type="Int32" />
+          <Property Name="StatusCaminhao" Type="Boolean" Nullable="false" />
+          <Property Name="StatusMorotista" Type="Boolean" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Precision="3" />
+          <Property Name="DataAlteracao" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Simpar_JslModelStoreContainer" CdmEntityContainer="SimparlEntities">
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Simpar_JslModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="DataAlteracao" ColumnName="DataAlteracao" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="StatusMorotista" ColumnName="StatusMorotista" />
+                <ScalarProperty Name="StatusCaminhao" ColumnName="StatusCaminhao" />
+                <ScalarProperty Name="Eixos" ColumnName="Eixos" />
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Observacoes" ColumnName="Observacoes" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Cep" ColumnName="Cep" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Rua" ColumnName="Rua" />
+                <ScalarProperty Name="NomeCompleto" ColumnName="NomeCompleto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
