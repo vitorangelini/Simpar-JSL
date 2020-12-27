@@ -1,0 +1,38 @@
+Create Database Simpar_Jsl;
+
+use Simpar_Jsl;
+
+
+IF NOT EXISTS(
+SELECT TOP 1 1 FROM INFORMATION_SCHEMA.COLUMNS
+WHERE
+	[TABLE_NAME] = 'Usuarios'
+) 
+BEGIN
+
+Create Table  Usuarios (
+
+		Id int not null primary key identity(1,1),
+		NomeCompleto varchar(150),
+		Rua varchar(150),
+		Cidade  varchar(150),
+		Numero int,
+		Cep  varchar(10) ,
+		Bairro  varchar(150),
+		Estado  varchar(150),
+		Observacoes  varchar(600),
+		Marca  varchar(150),
+		Modelo  varchar(150),
+		Placa  varchar(150),
+		Eixos int,
+		StatusCaminhao bit,
+		StatusMorotista bit,
+		DataCriacao DateTime,
+		DataAlteracao DateTime
+
+)
+
+END
+
+ 
+ 
