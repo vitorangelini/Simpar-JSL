@@ -33,7 +33,7 @@ namespace Simpar_JSL.Controllers
                 {
 
                     usuarios = db.Usuarios.ToList();
-
+ 
                     model.ListUsuarios = (from i in usuarios
                                           select new UsuariosViewModel
                                           {
@@ -55,7 +55,7 @@ namespace Simpar_JSL.Controllers
                                               DataCadastro = i.DataCriacao,
                                               DataAlteracao = i.DataAlteracao
 
-                                          }).OrderByDescending(p=>p.DataCadastro).ToList();
+                                          }).OrderByDescending(p => p.DataCadastro).ToList();
                 }
 
                 result = new JsonResult() { Data = new JsonObject(true, "", "Data", JsonConvert.SerializeObject(model)) };
@@ -178,7 +178,7 @@ namespace Simpar_JSL.Controllers
                 model.Eixos = usuarios.Eixos;
                 model.Numero = usuarios.Numero;
                 model.StatusMotorista = usuarios.StatusMorotista;
-                model.StatusCaminhao =  usuarios.StatusCaminhao;
+                model.StatusCaminhao = usuarios.StatusCaminhao;
 
                 json = new JsonResult() { Data = new JsonObject(true, null, "Data", JsonConvert.SerializeObject(model)) };
 
@@ -219,7 +219,7 @@ namespace Simpar_JSL.Controllers
                 {
                     result = new JsonResult() { Data = new JsonObject(false, ex.Message, "Data", null) };
                 }
-               
+
             }
 
             return result;

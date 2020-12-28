@@ -56,7 +56,6 @@ function getDados() {
         },
         success: function (result) {
             var data = JSON.parse(result.Data.Data);
-
             var html = "";
             if (data !== null) {
 
@@ -91,6 +90,7 @@ function getDados() {
                     $(".table-nodata").addClass("hidden");
 
                 } else {
+                    $('#table-dados').html("");
                     $(".loader-card").addClass("hidden");
                     $("#table-content").removeClass("hidden");
                     $(".table-nodata").removeClass("hidden");
